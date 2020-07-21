@@ -1,32 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import CharactersList from './CharactersList';
 
 const endpoint = 'https://star-wars-character-search.glitch.me/api';
 
+const initialState = {
+  response: null,
+  loading: true,
+  error: null,
+};
+
+const fetchReducer = (state, action) => {
+  if (action.type === 'LOADING') {
+    return {
+      response: null,
+      loading: true,
+      error: null,
+    };
+  }
+
+  if (action.type === 'RESPONSE_COMPLETE') {
+    return {
+      response: action.payload.response,
+      loading: false,
+      error: null,
+    };
+  }
+
+  if (action.type === 'ERROR') {
+    return {
+      response: null,
+      loading: false,
+      error: action.payload.error,
+    };
+  }
+
+  return state;
+};
+
 function useFetch(url) {
-  const [response, setResponse] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [state, dispatch] = useReducer(fetchReducer, initialState);
 
   useEffect(() => {
-    setLoading(true);
-    setResponse(null);
-    setError(null);
+    dispatch({ type: 'LOADING' });
 
     fetch(url)
       .then((response) => response.json())
       .then((response) => {
-        setResponse(response);
+        dispatch({ type: 'RESPONSE_COMPLETE', payload: { response } });
       })
       .catch((error) => {
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
+        dispatch({ type: 'ERROR', payload: { error } });
       });
   }, [url]);
 
-  return [response, loading, error];
+  return [state.response, state.loading, state.error];
 }
 
 function App() {
