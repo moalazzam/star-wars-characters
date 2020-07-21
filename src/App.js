@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import CharactersList from './CharactersList';
+import dummyData from './dummy-data';
 
 function App() {
+  const [characters, setCharacters] = useState(dummyData);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="Application">
+      <header>
+        <h1>Star Wars Characters</h1>
       </header>
+      <main>
+        <section className="sidebar">
+          <CharactersList characters={characters} />
+        </section>
+      </main>
     </div>
   );
 }
