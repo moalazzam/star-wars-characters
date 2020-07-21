@@ -3,20 +3,20 @@ import CharactersList from './CharactersList';
 
 const endpoint = 'https://star-wars-character-search.glitch.me/api';
 
-function App() {
-  const [characters, setCharacters] = useState(null);
+function useFetch(url) {
+  const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
-    setCharacters(null);
+    setResponse(null);
     setError(null);
 
-    fetch(endpoint + '/characters')
+    fetch(url)
       .then((response) => response.json())
-      .then(({ characters }) => {
-        setCharacters(characters);
+      .then((response) => {
+        setResponse(response);
       })
       .catch((error) => {
         setError(error);
@@ -24,7 +24,14 @@ function App() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [url]);
+
+  return [response, loading, error];
+}
+
+function App() {
+  const [response, loading, error] = useFetch(endpoint + '/characters');
+  const characters = (response && response.characters) || [];
 
   return (
     <div className="Application">
