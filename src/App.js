@@ -1,6 +1,7 @@
 import React, { useReducer, useEffect, useCallback } from 'react';
 import isFunction from 'lodash/isFunction';
 
+import CharactersSearch from './CharactersSearch';
 import CharactersList from './CharactersList';
 
 const endpoint = 'https://star-wars-character-search.glitch.me/api';
@@ -83,6 +84,7 @@ function App() {
       </header>
       <main>
         <section className="sidebar">
+          <CharactersSearch dispatch={dispatch} />
           <button onClick={() => dispatch(fetchCharacters)}>
             Fetch Characters
           </button>
