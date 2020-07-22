@@ -1,8 +1,10 @@
 import React, { useReducer, useEffect, useCallback } from 'react';
 import isFunction from 'lodash/isFunction';
+import { Route } from 'react-router-dom';
 
 import CharactersSearch from './CharactersSearch';
 import CharactersList from './CharactersList';
+import CharacterView from './CharacterView';
 
 const endpoint = 'https://star-wars-character-search.glitch.me/api';
 
@@ -89,6 +91,9 @@ function App() {
             Fetch Characters
           </button>
           <CharactersList characters={characters} />
+        </section>
+        <section className="CharacterView">
+          <Route path="/characters/:id" component={CharacterView} />
         </section>
       </main>
     </div>
