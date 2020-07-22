@@ -1,12 +1,13 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const CharactersListItem = ({ character }) => {
   const { id, name } = character;
   return (
     <article className="CharactersListItem">
-      <a className="CharactersListItemLink" href={`/characters/${id}`}>
+      <NavLink className="CharactersListItemLink" to={`/characters/${id}`}>
         {name}
-      </a>
+      </NavLink>
     </article>
   );
 };
