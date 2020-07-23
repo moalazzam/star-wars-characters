@@ -92,6 +92,7 @@ input[type='submit'] {
     color: lighten($font-color, 10%);
   }
   margin: 0.5em auto;
+  padding: 0.5em;
   max-width: 800px;
 
   main {
@@ -111,7 +112,7 @@ input[type='submit'] {
 }
 
 .CharactersListItem {
-  padding: 0.5em;
+  padding: 0.5em 0;
 }
 
 .CharactersListItemLink {
@@ -129,6 +130,6 @@ input[type='submit'] {
   list-style: none;
   padding: 0;
   li {
-    padding: 1em;
+    padding: 1em 0;
   }
 }

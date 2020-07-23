@@ -1,19 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const endpoint = 'https://star-wars-character-search.glitch.me/api';
-
-function searchCharacters(dispatch, query) {
-  dispatch({ type: 'LOADING' });
-  fetch(endpoint + '/search/' + query)
-    .then((response) => response.json())
-    .then((response) =>
-      dispatch({
-        type: 'RESPONSE_COMPLETE',
-        payload: { characters: response.characters },
-      }),
-    )
-    .catch((error) => dispatch({ type: 'ERROR', payload: { error } }));
-}
+import { searchCharacters } from '../utils/api-actions';
 
 const CharactersSearch = React.memo(({ dispatch }) => {
   const [query, setQuery] = useState('');
